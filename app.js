@@ -10,6 +10,8 @@ import videoRouter from "./routers/videoRouter";
 import globalRouter from "./routers/globalRouter";
 import routes from "./routes";
 
+import { localsMiddleware } from "./localsMiddleware";
+
 const app = express();
 
 
@@ -19,15 +21,21 @@ const betweenHome = (req, res, next) => {
     next();
 }*/
 
-app.use (morgan ("dev")); // this is middlware. in using use, order really matters.
-app.use (helmet());
-app.use (cookieParser());
 
+// setting up view engine with pug.
+app.set ('view engine', 'pug');
+
+// setting up middlewares.
+app.use (helmet()); // security associated package
+app.use (morgan ("dev")); // this is middlware. in using use, order really matters.
+app.use (cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }))
- 
-// parse application/json
+ // parse application/json
 app.use(bodyParser.json())
 
+
+// for using routes as local.
+app.use (localsMiddleware);
 
 // setting up routers.
 // router
