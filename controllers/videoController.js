@@ -3,7 +3,7 @@ import { videosDb } from "../db";
 export const home = (req, res) => res.render ("home", {pageTitle: "Home", videosDb:videosDb}); // render의 첫번째 인자는 템플릿, 두번째 인자는 템플릿에 추가할 정보가 담긴 객체이다.
 export const search = (req, res) => {
     const { query: {term: searchingBy} } = req; // totally new way.
-    res.render ("search", {pageTitle: "search", searchingBy: searchingBy});
+    res.render ("search", {pageTitle: "search", searchingBy: searchingBy, videosDb:videosDb});
 }
 
 
