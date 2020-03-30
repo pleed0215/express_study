@@ -1,4 +1,23 @@
-export const videosDb = [
+import mongoose from "mongoose";
+import dotenv from "dotenv"; // reason to use dotenv is for conciling secure informations.
+dotenv.config(); // in .env file, can make your secure information. in this lecture, we use DB url.
+// and have to add .env to .gitignore.
+
+mongoose.connect (process.env.MONGO_URL, 
+                  {
+                      useNewUrlParser: true,
+                      useUnifiedTopology: true
+                      //useFindAndModify: false
+                  }
+);
+
+export const db = mongoose.connection;
+
+db.once("open", ()=> console.log("Connected to DB"));
+db.on("error", error =>console.log("Error to connect DB.\nError obj: " + error ));
+
+
+/*export const videosDb = [
     {
         id: 3245123,
         title: 'Video awesome',
@@ -48,3 +67,4 @@ export const videosDb = [
         }
     }
 ]
+*/

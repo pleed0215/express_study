@@ -26,9 +26,11 @@ export const postLogin = (req,res) => {
     res.redirect (routes.home);
 };
 
+// TODO: process to logout
 export const logout = (req,res) => {
     res.locals.user.isAuthenticated = false;
-    res.render ("logout", {pageTitle: "/logout"});
+    //res.render ("logout", {pageTitle: "/logout"});
+    res.redirect (routes.home);
 };
 
 

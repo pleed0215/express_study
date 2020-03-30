@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "mongoose": "^5.9.6"
+  },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.0",
@@ -31,5 +34,16 @@
   "bugs": {
     "url": "https://github.com/pleed0215/express_study/issues"
   },
-  "homepage": "https://github.com/pleed0215/express_study#readme"
+  "homepage": "https://github.com/pleed0215/express_study#readme",
+  "nodemonConfig": {
+    "extension": [
+      "pug",
+      "js"
+    ],
+    "ignore": [
+      "test/*",
+      "docs/*"
+    ],
+    "delay": "2000"
+  }
 }

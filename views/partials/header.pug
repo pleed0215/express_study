@@ -10,11 +10,11 @@ header.header
             h1=user.isAuthenticated
             if user.isAuthenticated
                 li
-                    a(href=routes.upload) Upload
+                    a(href=`/videos${routes.upload}`) Upload
                 li
                     a(href=routes.userDetail(user.id)) Profile
                 li 
-                    a(href=routes.login) Log out
+                    a(href=routes.logout) Log out
             else
                 li 
                     a(href=routes.join) Join
