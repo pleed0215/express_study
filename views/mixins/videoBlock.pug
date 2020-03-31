@@ -4,3 +4,4 @@ mixin videoBlock (video = {})
             video.videoBlock__thumbnail(src=video.fileUrl, autoplay=false, controls=true)
             h4.videoBlock__title=video.title
             h5.videoBlock__views=video.views
+            span.videoBlock__date=video.createdAt

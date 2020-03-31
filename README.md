@@ -3,8 +3,9 @@
 Cloning youtube with vanilla and nodejs.
 
 ## Pages:
-- [ ] Home
-- [X] Join
+
+- [x] Home
+- [x] Join
 - [x] Search
 - [x] login
 - [ ] logout
@@ -12,7 +13,7 @@ Cloning youtube with vanilla and nodejs.
 - [ ] User Detail
 - [ ] Edit Profile
 - [ ] Change password
-- [ ] Upload
-- [ ] Video Details
-- [ ] Edit Video
-- [ ] Delete video
+- [x] Upload
+- [x] Video Details
+- [x] Edit Video
+- [x] Delete video

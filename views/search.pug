@@ -5,5 +5,8 @@ block content
     .search__header
         h3 Searching by #{searchingBy}
     .search__videos
-        each video in videosDb
-            +videoBlock(video)
+        if videosDb.length === 0
+            h3.novideo No Result founded.
+        else
+            each video in videosDb
+                +videoBlock(video)
