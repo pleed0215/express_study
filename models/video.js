@@ -13,6 +13,10 @@ const VideoSchema = new mongoose.Schema( {
     description: { 
         type: String, 
     },
+    views: {
+        type: Number,
+        default: 0
+    },
     createdAt: {
         type: Date,
         default: Date.now // Date.now 는 함수. Date.now()는 함수를 실행한 것. 차이를 알아 두자.

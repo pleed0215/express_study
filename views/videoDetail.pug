@@ -1,5 +1,10 @@
 extends layouts/main
-include mixins/videoBlock
+
 
 block content
-    +videoBlock(id)
+    .video__player
+        video(src=`/${video.fileUrl}`)
+    .video__body
+        h3.video__title=video.title
+        span.video__view=video.views
+        p.video__descritption=video.description

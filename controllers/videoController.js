@@ -7,7 +7,7 @@ import routes from "../routes";
 export const home = async (req, res) => {
     try {
         const videosDb = await Video.find ({});
-
+        console.log (videosDb);
         res.render ("home", {pageTitle: "home", videosDb: videosDb});
     }
     catch (error) {
@@ -63,12 +63,13 @@ export const videoDetail = async (req,res) => {
 
     try { 
         const {
-            params: { id }
+            params: { id } // paramemters. :id
         } = req;
         
         console.log (id);
-        const videoById = Video.findById (id);
-        console.log (videoById);
+        const videoById = await Video.findById (id);
+
+        //console.log (videoById);
 
         res.render("videoDetail", {pageTitle: `videos/${id}`, video: videoById});
     }
