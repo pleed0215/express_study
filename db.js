@@ -3,7 +3,9 @@ import dotenv from "dotenv"; // reason to use dotenv is for conciling secure inf
 dotenv.config(); // in .env file, can make your secure information. in this lecture, we use DB url.
 // and have to add .env to .gitignore.
 
-mongoose.connect (process.env.MONGO_URL, 
+console.log (process.env.MONGODB_URL);
+
+mongoose.connect (process.env.MONGODB_URL, 
                   {
                       useNewUrlParser: true,
                       useUnifiedTopology: true

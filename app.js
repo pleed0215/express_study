@@ -4,6 +4,7 @@ import helmet from "helmet"; // security associated library.
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 
+
 // import routers.
 import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
@@ -24,6 +25,9 @@ const betweenHome = (req, res, next) => {
 
 // setting up view engine with pug.
 app.set ('view engine', 'pug');
+
+// set static
+app.use ('/uploads', express.static ('uploads'));
 
 // setting up middlewares.
 app.use (helmet()); // security associated package

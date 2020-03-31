@@ -1,13 +1,14 @@
 import express from "express";
 import routes from "../routes";
 import { videos, getUpload, postUpload, videoDetail, editVideo, deleteVideo } from "../controllers/videoController";
+import { mwUploadVideoSingle } from "../localsMiddleware";
 
 const videoRouter = express.Router();
 
 videoRouter.get (routes.videos, videos);
 
 videoRouter.get (routes.upload, getUpload);
-videoRouter.post (routes.upload, postUpload);
+videoRouter.post (routes.upload, mwUploadVideoSingle('videofile'), postUpload);
 
 videoRouter.get (routes.videoDetail(), videoDetail); // 왜... videoDetail(id)이 아닐까..?
 videoRouter.get (routes.editVideo, editVideo);

@@ -1,4 +1,7 @@
 import routes from "./routes"
+import multer from "multer";
+
+export const uploadVideo = multer ({dest: "uploads/videos/"});
 
 export const localsMiddleware = (req, res, next) => {
     res.locals.siteName = 'WeTube'; // this is how to use global variables in html(or pug). I can use this by javascript ie. #{ siteName }
@@ -9,3 +12,7 @@ export const localsMiddleware = (req, res, next) => {
     };
     next ();
 };
+
+
+// form의 경로를 가져오기 위한 molter 미들웨어.
+export const mwUploadVideoSingle = (fieldName) => uploadVideo.single(fieldName);

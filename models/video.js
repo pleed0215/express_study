@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+
 const VideoSchema = new mongoose.Schema( {
     fileUrl: { 
         type: String, 
@@ -11,10 +12,6 @@ const VideoSchema = new mongoose.Schema( {
     },
     description: { 
         type: String, 
-    },
-    description: {
-        type: Number,
-        default: 0
     },
     createdAt: {
         type: Date,
