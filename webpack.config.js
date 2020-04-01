@@ -16,7 +16,7 @@ module.exports = {
     path: OUTPUT_DIR,
     filename: "[name].js"
   },
-  mode: process.env.WEBPACK_ENV,
+  mode: "development", // process.env.WEBPACK_ENV,
   module: {
     rules: [
       // rules for babel. js.

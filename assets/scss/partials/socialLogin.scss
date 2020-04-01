@@ -1,0 +1,16 @@
+.social-login {
+  button {
+    height: 3em;
+    color: white;
+
+    i {
+      font-size: 20px;
+    }
+    &:first-child {
+      background-color: $black;
+    }
+    &:last-child {
+      background-color: #0e1f56;
+    }
+  }
+}
