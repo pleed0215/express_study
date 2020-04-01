@@ -25,6 +25,7 @@ app.set("view engine", "pug");
 
 // set static
 app.use("/uploads", express.static("uploads"));
+app.use("/static", express.static("static"));
 
 // setting up middlewares.
 app.use(helmet()); // security associated package
