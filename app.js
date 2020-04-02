@@ -4,6 +4,11 @@ import helmet from "helmet"; // security associated library.
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 
+import passport from "passport";
+import session from "express-session";
+import "./passport";
+
+console.log(process.env.COOKIE_SECRET);
 // import routers.
 import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
@@ -20,6 +25,7 @@ const betweenHome = (req, res, next) => {
     next();
 }*/
 
+
 // setting up view engine with pug.
 app.set("view engine", "pug");
 
@@ -34,6 +40,17 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 // parse application/json
 app.use(bodyParser.json());
+app.use(session({
+    resave: false,
+    saveUninitialized: false,
+    secret: process.env.COOKIE_SECRET,
+
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+/* setting up session */
+
 
 // for using routes as local.
 app.use(localsMiddleware);

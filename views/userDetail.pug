@@ -4,7 +4,7 @@ block content
     .user-detail__container
         .user-info
             img(src="", width="300px", height="300px").user__avatar
-            h4.user__name Name: User name
-            p.user__email email: useremail@user.mail
+            h4.user__name Name: #{user.name}
+            p.user__email email: #{user.email}
             a(href=routes.editProfile(user.id))
                 button Edit Profile
