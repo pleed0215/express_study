@@ -1,11 +1,20 @@
 @import "config/_variables";
 
+// import mixins
+@import "mixins/btnColor";
+
 // import partials
 @import "partials/header";
 @import "partials/footer";
 @import "partials/form";
 @import "partials/socialLogin";
+@import "partials/videoBlock";
 
+// import pages
+@import "pages/videoDetail";
+@import "pages/userDetail";
+@import "pages/editProfile";
+@import "pages/home";
 body {
   background-color: $grey;
   color: $black;
@@ -19,6 +28,9 @@ main {
   max-width: 1400px;
   margin: 0 auto;
   min-height: 70vh;
+
+  display: flex;
+  justify-content: center;
 }
 
 input {
@@ -38,4 +50,9 @@ input {
   &::placeholder {
     color: black;
   }
+}
+
+a {
+  width: 100%;
+  text-decoration: none;
 }

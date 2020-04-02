@@ -3,5 +3,5 @@ mixin videoBlock (video = {})
         a(href=routes.videoDetail(video.id))
             video.videoBlock__thumbnail(src=video.fileUrl, autoplay=false, controls=true)
             h4.videoBlock__title=video.title
-            h5.videoBlock__views=video.views
+            h5.videoBlock__views #{video.views} view#{video.vieiws>1?"s":""}
             span.videoBlock__date=video.createdAt

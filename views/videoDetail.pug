@@ -2,11 +2,14 @@ extends layouts/main
 
 
 block content
-    .video__player
-        video(src=`/${video.fileUrl}`)
-    .video__body
-        a(href=routes.editVideo(video._id)) 
-            button Edit Video
-        h3.video__title=video.title
-        span.video__view=video.views
-        p.video__descritption=video.description
+    .video-detail__container
+        .video__player
+            video(src=`/${video.fileUrl}`)
+            .video__info
+                a(href=routes.editVideo(video._id)) 
+                    button Edit Video
+                h3.video__title=video.title
+                span.video__views-and-date views: #{video.views}, upload date: #{video.createdAt}
+                p.video__descritption=video.description
+            .video__comment-title
+                span.video__comments #{video.comments.length} comment#{video.comments.length>0?"s":""}

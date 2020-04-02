@@ -9,8 +9,8 @@ const SEARCH = '/search';
 
 const USERS = '/users';
 const USER_DETAIL = '/:id'; // users/id
-const EDIT_PROFILE = '/edit-profile';
-const CHANGE_PASSWORD = '/change-password';
+const EDIT_PROFILE = '/:id/edit-profile';
+const CHANGE_PASSWORD = '/:id/change-password';
 
 // VIDEOS
 
@@ -29,8 +29,8 @@ const routes = {
 
     users: USERS,
         userDetail: (id) => id ? `/users/${id}`: USER_DETAIL,
-        editProfile: EDIT_PROFILE,
-        changePassword: CHANGE_PASSWORD,
+        editProfile: (id) => id? `/users/${id}/edit-profile`:EDIT_PROFILE,
+        changePassword: (id) => id? `/users/${id}/change-password`:CHANGE_PASSWORD,
 
     videos: VIDEOS,
         upload: UPLOAD,

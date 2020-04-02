@@ -1,0 +1,29 @@
+.videoBlock {
+  video {
+    max-width: 100%;
+  }
+  a {
+    color: $black;
+    text-decoration: none;
+  }
+  .videoBlock__title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .videoBlock__views {
+    font-size: 14px;
+  }
+
+  &:first-child,
+  &:nth-child(2) {
+    grid-column: span 3;
+  }
+
+  &:nth-child(3),
+  &:nth-child(4),
+  &:nth-child(5) {
+    grid-column: span 2;
+  }
+}

@@ -34,7 +34,9 @@ export const logout = (req, res) => {
 export const users = (req, res) => res.render("users", { pageTitle: "/users" });
 export const userDetail = (req, res) =>
   res.render("userDetail", { pageTitle: "/userDetail" });
-export const editProfile = (req, res) =>
+export const editProfile = (req, res) => {
   res.render("editProfile", { pageTitle: "/editProfile" });
+}
+  
 export const changePassword = (req, res) =>
   res.render("changePassword", { pageTitle: "/changePassword" });
