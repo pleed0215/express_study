@@ -10,5 +10,21 @@ export const localsMiddleware = (req, res, next) => {
   next();
 };
 
+export const onlyPublic = (req, res, next) => {
+  if (req.user) {
+    res.redirect(routes.home);
+  } else {
+    next();
+  }
+};
+
+export const onlyPrivate = (req, res, next) => {
+  if (req.user) {
+    next();
+  } else {
+    res.redirect(routes.home);
+  }
+};
+
 // form의 경로를 가져오기 위한 molter 미들웨어.
 export const mwUploadVideoSingle = fieldName => uploadVideo.single(fieldName);

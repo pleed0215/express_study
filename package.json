@@ -7,6 +7,7 @@
     "@babel/polyfill": "^7.8.7",
     "autoprefixer": "^9.7.5",
     "babel-loader": "^8.1.0",
+    "connect-mongo": "^3.2.0",
     "css-loader": "^3.4.2",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
@@ -45,7 +46,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev:server": "nodemon --exec babel-node init.js --delay 2",
-    "dev:assets": "WEBPACK_ENV=development webpack -w",
+    "dev:assets": "webpack -w",
     "build:assets": "WEBPACK_ENV=production webpack"
   },
   "repository": {

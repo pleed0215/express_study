@@ -9,24 +9,24 @@ import {
   postEditVideo,
   deleteVideo
 } from "../controllers/videoController";
-import { mwUploadVideoSingle } from "../localsMiddleware";
+import { mwUploadVideoSingle, onlyPrivate } from "../localsMiddleware";
 
 const videoRouter = express.Router();
 
 // /videos, get method post handler
-videoRouter.get(routes.videos, videos);
+videoRouter.get(routes.videos, onlyPrivate, videos);
 
 // /videos/upload, get and post method handler
-videoRouter.get(routes.upload, getUpload);
+videoRouter.get(routes.upload, onlyPrivate, getUpload);
 videoRouter.post(routes.upload, mwUploadVideoSingle("videofile"), postUpload);
 
 // /videos/:id, get method handler
 videoRouter.get(routes.videoDetail(), videoDetail); // 왜... videoDetail(id)이 아닐까..?
 
 // /videos/:id/edit, get and post method handler
-videoRouter.get(routes.editVideo(), getEditVideo);
+videoRouter.get(routes.editVideo(), onlyPrivate, getEditVideo);
 videoRouter.post(routes.editVideo(), postEditVideo);
 
-videoRouter.get(routes.deleteVideo(), deleteVideo);
+videoRouter.get(routes.deleteVideo(), onlyPrivate, deleteVideo);
 
 export default videoRouter;

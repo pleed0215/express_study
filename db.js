@@ -13,6 +13,7 @@ mongoose.connect(process.env.MONGODB_URL, {
   useFindAndModify: false
 });
 
+// initializing mongoose.
 export const db = mongoose.connection;
 
 db.once("open", () => console.log("Connected to DB"));

@@ -8,6 +8,8 @@ const autoprefixer = require("autoprefixer");
 // resolve, join 차이. resolve는 인수에 절대경로가 들어있으면 절대 경로 우선.
 const ENTRY_FILLE = path.resolve(__dirname, "assets", "js", "main.js");
 const OUTPUT_DIR = path.join(__dirname, "static");
+
+dotenv.config();
 // module, rulres 의 /\(.scss)$/ 은 정규표현식임.
 module.exports = {
   // babel/polyfill은 브라우저가 nodejs를 다 이해하는 건 아니라서.. async나 await..
