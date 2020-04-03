@@ -4,4 +4,4 @@ mixin videoBlock (video = {})
             video.videoBlock__thumbnail(src=video.fileUrl, autoplay=false, controls=true)
             h4.videoBlock__title=video.title
             h5.videoBlock__views #{video.views} view#{video.vieiws>1?"s":""}
-            span.videoBlock__date=video.createdAt
+            span.videoBlock__date #{`${video.createdAt.getFullYear()}-${video.createdAt.getMonth()}-${video.createdAt.getDay()}`}

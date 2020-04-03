@@ -23,6 +23,8 @@ const DELETE_VIDEO = "/:id/delete";
 // routes for passport.
 const GITHUB = "/auth/github";
 const GITHUB_CALLBACK = "/auth/github/callback";
+const FACEBOOK = "/auth/facebook";
+const FACEBOOK_CALLBACK = "/auth/facebook/callback";
 
 const routes = {
   home: HOME,
@@ -32,18 +34,21 @@ const routes = {
   search: SEARCH,
 
   users: USERS,
-  userDetail: id => (id ? `/users/${id}` : USER_DETAIL),
-  editProfile: id => (id ? `/users/${id}/edit-profile` : EDIT_PROFILE),
-  changePassword: id => (id ? `/users/${id}/change-password` : CHANGE_PASSWORD),
+  userDetail: (id) => (id ? `/users/${id}` : USER_DETAIL),
+  editProfile: (id) => (id ? `/users/${id}/edit-profile` : EDIT_PROFILE),
+  changePassword: (id) =>
+    id ? `/users/${id}/change-password` : CHANGE_PASSWORD,
 
   videos: VIDEOS,
   upload: UPLOAD,
-  videoDetail: id => (id ? `/videos/${id}` : VIDEO_DETAIL),
-  editVideo: id => (id ? `/videos/${id}/edit` : EDIT_VIDEO),
-  deleteVideo: id => (id ? `/videos/${id}/delete` : DELETE_VIDEO),
+  videoDetail: (id) => (id ? `/videos/${id}` : VIDEO_DETAIL),
+  editVideo: (id) => (id ? `/videos/${id}/edit` : EDIT_VIDEO),
+  deleteVideo: (id) => (id ? `/videos/${id}/delete` : DELETE_VIDEO),
 
   github: GITHUB,
-  githubCallback: GITHUB_CALLBACK
+  githubCallback: GITHUB_CALLBACK,
+  facebook: FACEBOOK,
+  facebookCallback: FACEBOOK_CALLBACK,
 };
 
 export default routes;

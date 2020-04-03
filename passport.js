@@ -1,12 +1,19 @@
 import passport from "passport";
 import GithubPassport from "passport-github";
+import FacebookPassport from "passport-facebook";
 
 import User from "./models/User";
 
 const GithubStrategy = GithubPassport.Strategy;
-const clientID = process.env.GITHUB_CLIENT_ID;
-const clientSecret = process.env.GITHUB_CLIENT_SECRET;
-const callbackURL = process.env.GITHUB_CALLBACK_URL;
+const FacebookStrategy = FacebookPassport.Strategy;
+
+const githubClientID = process.env.GITHUB_CLIENT_ID;
+const githubClientSecret = process.env.GITHUB_CLIENT_SECRET;
+const githubCallbackURL = process.env.GITHUB_CALLBACK_URL;
+
+const facebookClientID = process.env.FB_CLIENT_ID;
+const facebookClientSecret = process.env.FB_CLIENT_SECRET;
+const facebookCallbackURL = process.env.FB_CALLBACK_URL;
 
 // passport strategies.
 
@@ -17,39 +24,80 @@ passport.use(User.createStrategy());
 passport.use(
   new GithubStrategy(
     {
-      clientID,
-      clientSecret,
-      callbackURL
+      clientID: githubClientID,
+      clientSecret: githubClientSecret,
+      callbackURL: githubCallbackURL,
     },
     async (accessToken, refreshToken, profile, cb) => {
       // codes here, after github send user information.
       const {
-        _json: {
-          id, avatar_url, email, name
-        }
+        _json: { id, avatar_url: avatarUrl, email, name },
       } = profile;
-
-      console.log(id, avatar_url, email, name);
 
       try {
         const user = await User.findOne({ githubId: id });
         if (user) {
           user.githubId = id;
-          user.avatarUrl = avatar_url;
+          user.avatarUrl = avatarUrl;
           user.name = name;
           user.email = email;
           user.save();
           console.log(user);
           return cb(null, user);
-        }
-        else {
+        } else {
           const newUser = await User.create({
-            name, email, avatarUrl: avatar_url, githubId: id
+            name,
+            email,
+            avatarUrl: avatarUrl,
+            githubId: id,
           });
           return cb(null, newUser);
         }
+      } catch (error) {
+        return cb(error);
       }
-      catch (error) {
+    }
+  )
+);
+
+// for facebook passport login strategy
+passport.use(
+  new FacebookStrategy(
+    {
+      clientID: facebookClientID,
+      clientSecret: facebookClientSecret,
+      callbackURL: facebookCallbackURL,
+      profileFields: ["id", "displayName", "picture", "emails"],
+    },
+    async (accessToken, refreshToken, profile, cb) => {
+      // codes here, after github send user information.
+      const {
+        _json: { id, email, name },
+      } = profile;
+      const intId = parseInt(id);
+      const avatarUrl = `https://graph.facebook.com/${intId}/picture?type=large`;
+
+      try {
+        const user = await User.findOne({ facebookId: intId });
+        if (user) {
+          user.facebookId = intId;
+          user.avatarUrl = avatarUrl;
+          user.name = name;
+          user.email = email;
+          user.save();
+          console.log(user);
+          return cb(null, user);
+        } else {
+          const newUser = await User.create({
+            name: name,
+            email: email,
+            avatarUrl: avatarUrl,
+            facebookId: intId,
+          });
+          console.log(avatarUrl, intId, name, email);
+          return cb(null, newUser);
+        }
+      } catch (error) {
         return cb(error);
       }
     }

@@ -9,7 +9,9 @@ import {
   getJoin,
   logout,
   githubLogin,
-  githubLoginCallback
+  githubLoginCallback,
+  facebookLogin,
+  facebookLoginCallback,
 } from "../controllers/userController";
 
 import { onlyPublic } from "../localsMiddleware";
@@ -29,9 +31,10 @@ globalRouter.get(routes.search, search);
 
 // setting up routes for passport.
 // for github passport routes
-
 globalRouter.get(routes.github, githubLogin);
 globalRouter.get(routes.githubCallback, githubLoginCallback);
+globalRouter.get(routes.facebook, facebookLogin);
+globalRouter.get(routes.facebookCallback, facebookLoginCallback);
 
 //globalRouter.get (routes.users, (req, res) => res.send("Hello, this is your /users route."));
 //globalRouter.get (routes.videos, (req, res) => res.send("Hello, this is your /videos route."));

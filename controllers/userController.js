@@ -7,7 +7,7 @@ export const getJoin = (req, res) => res.render("join", { pageTitle: "/Join" });
 export const postJoin = async (req, res, next) => {
   // console.log(req.body); // bodyParser package 덕분임. 그래서 쉽게 post 된 내용을 확인 가능하다.
   const {
-    body: { name, email, password, password2 }
+    body: { name, email, password, password2 },
   } = req;
 
   if (req.body.password !== req.body.password2) {
@@ -32,7 +32,7 @@ export const getLogin = (req, res) =>
   res.render("login", { pageTitle: "/login" });
 export const postLogin = passport.authenticate("local", {
   failrueRedirect: routes.login,
-  successRedirect: routes.home
+  successRedirect: routes.home,
 });
 
 // /logout GET method
@@ -54,7 +54,7 @@ export const getEditProfile = (req, res) => {
 };
 export const postEditProfile = async (req, res) => {
   const {
-    body: { name, email }
+    body: { name, email },
   } = req;
   console.log(name, email, req.user._id);
   await User.findByIdAndUpdate(req.user._id, { name, email });
@@ -67,8 +67,18 @@ export const changePassword = (req, res) =>
   res.render("changePassword", { pageTitle: "/changePassword" });
 
 // CALLBACK Method for passport
+// for github
 export const githubLogin = passport.authenticate("github");
 export const githubLoginCallback = passport.authenticate("github", {
   failrueRedirect: routes.login,
-  successRedirect: routes.home
+  successRedirect: routes.home,
+});
+
+// for facebook
+export const facebookLogin = passport.authenticate("facebook", {
+  scope: ["email"],
+});
+export const facebookLoginCallback = passport.authenticate("facebook", {
+  failrueRedirect: routes.login,
+  successRedirect: routes.home,
 });

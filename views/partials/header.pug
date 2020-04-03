@@ -20,3 +20,9 @@ header.header
                         a(href=routes.join) Join
                     li 
                         a(href=routes.login) Log in
+        .header__column
+            if user
+                if user.avatarUrl
+                    img(src=user.avatarUrl, width=25, height=25).user__avatar
+                a(href=routes.userDetail(user._id))
+                    p.user__name #{user.name}
