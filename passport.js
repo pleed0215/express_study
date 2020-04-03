@@ -21,9 +21,37 @@ passport.use(
       clientSecret,
       callbackURL
     },
-    (accessToken, refreshToken, profile, cb) => {
+    async (accessToken, refreshToken, profile, cb) => {
       // codes here, after github send user information.
-      User.findOne({ githubId });
+      const {
+        _json: {
+          id, avatar_url, email, name
+        }
+      } = profile;
+
+      console.log(id, avatar_url, email, name);
+
+      try {
+        const user = await User.findOne({ githubId: id });
+        if (user) {
+          user.githubId = id;
+          user.avatarUrl = avatar_url;
+          user.name = name;
+          user.email = email;
+          user.save();
+          console.log(user);
+          return cb(null, user);
+        }
+        else {
+          const newUser = await User.create({
+            name, email, avatarUrl: avatar_url, githubId: id
+          });
+          return cb(null, newUser);
+        }
+      }
+      catch (error) {
+        return cb(error);
+      }
     }
   )
 );
