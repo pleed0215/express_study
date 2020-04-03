@@ -7,7 +7,9 @@ import {
   postLogin,
   postJoin,
   getJoin,
-  logout
+  logout,
+  githubLogin,
+  githubLoginCallback
 } from "../controllers/userController";
 
 import { onlyPublic } from "../localsMiddleware";
@@ -24,6 +26,12 @@ globalRouter.post(routes.login, postLogin);
 
 globalRouter.get(routes.logout, logout);
 globalRouter.get(routes.search, search);
+
+// setting up routes for passport.
+// for github passport routes
+
+globalRouter.get(routes.github, githubLogin);
+globalRouter.get(routes.githubCallback, githubLoginCallback);
 
 //globalRouter.get (routes.users, (req, res) => res.send("Hello, this is your /users route."));
 //globalRouter.get (routes.videos, (req, res) => res.send("Hello, this is your /videos route."));

@@ -20,12 +20,6 @@ import { localsMiddleware } from "./localsMiddleware";
 
 const app = express();
 
-/* all callback function in express has 3 argument, req, res and enxt 
-const betweenHome = (req, res, next) => {
-    console.log ("This is between home");
-    next();
-}*/
-
 // setting up view engine with pug.
 app.set("view engine", "pug");
 
