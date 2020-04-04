@@ -24,7 +24,7 @@ const app = express();
 app.set("view engine", "pug");
 
 // set static
-app.use("/uploads", express.static("uploads"));
+app.use("/uploads", express.static("./uploads"));
 app.use("/static", express.static("static"));
 
 // setting up middlewares.

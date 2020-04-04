@@ -3,8 +3,10 @@ extends layouts/main
 block content
     .user-detail__container
         .user-info
-            img(src=user.avatarUrl, width="300px", height="300px").user__avatar
-            h4.user__name Name: #{user.name}
-            p.user__email email: #{user.email}
-            a(href=routes.editProfile(user.id))
-                button Edit Profile
+            img(src=reqUser.avatarUrl, width="300px", height="300px").user__avatar
+            h4.user__name Name: #{reqUser.name}
+            p.user__email email: #{reqUser.email}
+        
+            if reqUser.id === user.id
+                a(href=routes.editProfile(reqUser.id))
+                    button Edit Profile

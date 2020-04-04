@@ -6,10 +6,11 @@ import {
   getEditProfile,
   postEditProfile,
   userDetail,
-  changePassword
+  getChangePassword,
+  postChangePassword
 } from "../controllers/userController";
 
-import { onlyPrivate } from "../localsMiddleware";
+import { onlyPrivate, uploadAvatar } from "../localsMiddleware";
 
 const userRouter = express.Router();
 
@@ -17,11 +18,16 @@ userRouter.get(routes.users, users);
 
 // /user/:id/changePassword
 // Todo: make change password page.
-userRouter.get(routes.changePassword(), onlyPrivate, changePassword);
+userRouter.get(routes.changePassword(), onlyPrivate, getChangePassword);
+userRouter.get(routes.changePassword(), onlyPrivate, postChangePassword);
 
 // /user/:id/editProfile, post and get method.
 userRouter.get(routes.editProfile(), onlyPrivate, getEditProfile);
-userRouter.post(routes.editProfile(), postEditProfile);
+userRouter.post(
+  routes.editProfile(),
+  uploadAvatar.single("avatar"),
+  postEditProfile
+);
 
 // user/:id/userDetail
 userRouter.get(routes.userDetail(), onlyPrivate, userDetail);

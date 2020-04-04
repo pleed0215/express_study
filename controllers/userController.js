@@ -7,7 +7,7 @@ export const getJoin = (req, res) => res.render("join", { pageTitle: "/Join" });
 export const postJoin = async (req, res, next) => {
   // console.log(req.body); // bodyParser package 덕분임. 그래서 쉽게 post 된 내용을 확인 가능하다.
   const {
-    body: { name, email, password, password2 },
+    body: { name, email, password, password2 }
   } = req;
 
   if (req.body.password !== req.body.password2) {
@@ -32,7 +32,7 @@ export const getLogin = (req, res) =>
   res.render("login", { pageTitle: "/login" });
 export const postLogin = passport.authenticate("local", {
   failrueRedirect: routes.login,
-  successRedirect: routes.home,
+  successRedirect: routes.home
 });
 
 // /logout GET method
@@ -45,8 +45,12 @@ export const logout = (req, res) => {
 export const users = (req, res) => res.render("users", { pageTitle: "/users" });
 
 // /users/:id, GET method.
-export const userDetail = (req, res) =>
-  res.render("userDetail", { pageTitle: "/userDetail" });
+export const userDetail = async (req, res) => {
+  const reqId = req.params.id;
+  const reqUser = await User.findById(reqId);
+
+  res.render("userDetail", { pageTitle: "/userDetail", reqUser });
+};
 
 // users/:id/edit-profile, GET, POS method.
 export const getEditProfile = (req, res) => {
@@ -54,31 +58,43 @@ export const getEditProfile = (req, res) => {
 };
 export const postEditProfile = async (req, res) => {
   const {
-    body: { name, email },
+    body: { name, email, avatar },
+    file
   } = req;
-  console.log(name, email, req.user._id);
-  await User.findByIdAndUpdate(req.user._id, { name, email });
+
+  await User.findByIdAndUpdate(req.user._id, {
+    name,
+    email,
+    avatarUrl: file ? `/${file.path}` : req.user.avatarUrl
+  });
   res.redirect(routes.userDetail(req.user._id));
 };
 
 // users/:id/change-password, GET method.
 // TODO: need to wrtie POST method code.
-export const changePassword = (req, res) =>
+export const getChangePassword = (req, res) =>
   res.render("changePassword", { pageTitle: "/changePassword" });
+
+export const postChangePassword = (req, res) => {
+  const {
+    body: { password }
+  } = req;
+  res.redirect(routes.userDetail(req.user.id));
+};
 
 // CALLBACK Method for passport
 // for github
 export const githubLogin = passport.authenticate("github");
 export const githubLoginCallback = passport.authenticate("github", {
   failrueRedirect: routes.login,
-  successRedirect: routes.home,
+  successRedirect: routes.home
 });
 
 // for facebook
 export const facebookLogin = passport.authenticate("facebook", {
-  scope: ["email"],
+  scope: ["email"]
 });
 export const facebookLoginCallback = passport.authenticate("facebook", {
   failrueRedirect: routes.login,
-  successRedirect: routes.home,
+  successRedirect: routes.home
 });
