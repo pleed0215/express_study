@@ -58,16 +58,22 @@ export const getEditProfile = (req, res) => {
 };
 export const postEditProfile = async (req, res) => {
   const {
-    body: { name, email, avatar },
+    body: { name, email },
     file
   } = req;
 
-  await User.findByIdAndUpdate(req.user._id, {
-    name,
-    email,
-    avatarUrl: file ? `/${file.path}` : req.user.avatarUrl
-  });
-  res.redirect(routes.userDetail(req.user._id));
+  try {
+    await User.findByIdAndUpdate(req.user._id, {
+      name,
+      email,
+      avatarUrl: file ? `/${file.path}` : req.user.avatarUrl
+    });
+    res.redirect(routes.userDetail(req.user._id));
+  }
+  catch (error) {
+    console.log(error);
+    res.redirect(routes.home);
+  }
 };
 
 // users/:id/change-password, GET method.
@@ -75,11 +81,25 @@ export const postEditProfile = async (req, res) => {
 export const getChangePassword = (req, res) =>
   res.render("changePassword", { pageTitle: "/changePassword" });
 
-export const postChangePassword = (req, res) => {
+export const postChangePassword = async (req, res) => {
   const {
-    body: { password }
+    body: { oldpassword, password1, password2 }
   } = req;
-  res.redirect(routes.userDetail(req.user.id));
+
+  try {
+    if (password1 === password2) {
+      await req.user.changePassword(oldpassword, password1);
+    }
+    else {
+      res.status(400);
+      res.render(routes.changePassword(req.user.id), { pageTitle: "Verify your password!", inputError: true })
+    }
+    res.redirect(routes.userDetail(req.user.id));
+  } catch (error) {
+    console.log(error);
+    res.status(400);
+    res.redirect(routes.home);
+  }
 };
 
 // CALLBACK Method for passport

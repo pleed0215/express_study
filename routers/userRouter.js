@@ -19,7 +19,7 @@ userRouter.get(routes.users, users);
 // /user/:id/changePassword
 // Todo: make change password page.
 userRouter.get(routes.changePassword(), onlyPrivate, getChangePassword);
-userRouter.get(routes.changePassword(), onlyPrivate, postChangePassword);
+userRouter.post(routes.changePassword(), onlyPrivate, postChangePassword);
 
 // /user/:id/editProfile, post and get method.
 userRouter.get(routes.editProfile(), onlyPrivate, getEditProfile);
