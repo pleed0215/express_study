@@ -1,4 +1,5 @@
 extends layouts/main
+include mixins/videoBlock
 
 block content
     .user-detail__container
@@ -10,3 +11,14 @@ block content
             if reqUser.id === user.id
                 a(href=routes.editProfile(reqUser.id))
                     button ✏️ Edit Profile
+
+        .user-videos
+            each video in reqUser.videos
+                +videoBlock (video)
+                +videoBlock (video)
+                +videoBlock (video)
+                +videoBlock (video)
+                +videoBlock (video)
+                +videoBlock (video)
+                +videoBlock (video)
+                

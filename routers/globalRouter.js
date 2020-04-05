@@ -36,6 +36,11 @@ globalRouter.get(routes.githubCallback, githubLoginCallback);
 globalRouter.get(routes.facebook, facebookLogin);
 globalRouter.get(routes.facebookCallback, facebookLoginCallback);
 
+// get methods for error pages.
+globalRouter.get(routes.errUnauthorized, (_, res) =>
+  res.render("error/unauthorized")
+);
+
 //globalRouter.get (routes.users, (req, res) => res.send("Hello, this is your /users route."));
 //globalRouter.get (routes.videos, (req, res) => res.send("Hello, this is your /videos route."));
 

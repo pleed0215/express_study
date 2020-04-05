@@ -17,13 +17,13 @@ export const home = async (req, res) => {
 // in search, I learned "regular expression", and my code need to install JS regex(regular expressions) library.
 export const search = async (req, res) => {
   const {
-    query: { term: searchingBy }
+    query: { term: searchingBy },
   } = req; // totally new way.
   let videosDb = [];
 
   try {
     videosDb = await Video.find({
-      title: { $regex: searchingBy, $options: "i" }
+      title: { $regex: searchingBy, $options: "i" },
     });
   } catch (error) {
     console.log(error);
@@ -31,7 +31,7 @@ export const search = async (req, res) => {
   res.render("search", {
     pageTitle: "search",
     searchingBy,
-    videosDb
+    videosDb,
   });
 };
 
@@ -50,15 +50,20 @@ export const postUpload = async (req, res) => {
   // traditional JS can't understand this way.
   const {
     body: { title, description },
-    file: { path }
+    file: { path },
   } = req;
 
   try {
     const newVideo = await Video.create({
       fileUrl: path,
       title,
-      description
+      description,
+      creator: req.user.id,
     });
+    console.log("newVideoid", newVideo.id);
+    req.user.videos.push(newVideo.id);
+    req.user.save();
+    console.log("req.user", req.user);
     // TODO: Upload and save video.
     console.log(path, title, description);
     res.redirect(routes.videoDetail(newVideo._id));
@@ -72,12 +77,12 @@ export const postUpload = async (req, res) => {
 export const getEditVideo = async (req, res) => {
   try {
     const {
-      params: { id }
+      params: { id },
     } = req;
     const videoById = await Video.findById(id);
     res.render("editVideo", {
       pageTitle: `Edit ${videoById.title}`,
-      video: videoById
+      video: videoById,
     });
   } catch (error) {
     console.log(error);
@@ -88,7 +93,7 @@ export const postEditVideo = async (req, res) => {
   try {
     const {
       params: { id },
-      body: { title, description }
+      body: { title, description },
     } = req;
     await Video.findByIdAndUpdate(
       id,
@@ -105,7 +110,7 @@ export const postEditVideo = async (req, res) => {
 export const deleteVideo = async (req, res) => {
   try {
     const {
-      params: { id }
+      params: { id },
     } = req;
     await Video.findByIdAndRemove(id);
   } catch (error) {
@@ -117,13 +122,15 @@ export const deleteVideo = async (req, res) => {
 export const videoDetail = async (req, res) => {
   try {
     const {
-      params: { id } // paramemters. :id
+      params: { id }, // paramemters. :id
     } = req;
 
-    const videoById = await Video.findById(id);
+    /* 겁나게 중요한 내용. 레퍼런스가 아이템을 가져오는 방법. populate를 이용. 
+       only can use to ObjectId that is referenced */
+    const videoById = await Video.findById(id).populate("creator");
     res.render("videoDetail", {
       pageTitle: `${videoById.title}`,
-      video: videoById
+      video: videoById,
     });
     console.log("after render");
   } catch (error) {

@@ -27,4 +27,12 @@
       border-radius: 50%;
     }
   }
+
+  .user-videos {
+    margin-top: 70px;
+    width: 80%;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(150px, 1fr));
+    grid-gap: 20px;
+  }
 }

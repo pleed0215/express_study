@@ -9,12 +9,16 @@
 @import "partials/form";
 @import "partials/socialLogin";
 @import "partials/videoBlock";
+@import "partials/videoPlayer";
 
 // import pages
 @import "pages/videoDetail";
 @import "pages/userDetail";
 @import "pages/editProfile";
 @import "pages/home";
+
+// import error pages.
+@import "error/unauthorized";
 body {
   background-color: $grey;
   color: $black;

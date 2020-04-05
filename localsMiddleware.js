@@ -1,6 +1,9 @@
 import routes from "./routes";
 import multer from "multer";
 
+// import Video model
+import Video from "./models/video";
+
 export const uploadVideo = multer({ dest: "uploads/videos/" });
 export const uploadAvatar = multer({ dest: "uploads/avatars/" });
 
@@ -27,12 +30,39 @@ export const onlyPrivate = (req, res, next) => {
   }
 };
 
+export const isYou = async (req, res, next) => {
+  const {
+    params: { id },
+  } = req;
+
+  console.log(req.params);
+  const reqVideo = await Video.findById(id);
+
+  console.log(
+    `REQUESTED VIDEO CREATOR ID\n
+  type: ${typeof reqVideo.creator},
+  value: ${reqVideo.creator}\n
+  CURR USER ID\n
+  type: ${typeof req.user.id},
+  value: ${req.user.id}`
+  );
+
+  if (reqVideo.creator == req.user.id) {
+    console.log("User verified");
+    next();
+  } else {
+    res.status(400);
+    console.log("Not authroized User!");
+    res.redirect("/error/unauthorized");
+  }
+};
+
 // form의 경로를 가져오기 위한 molter 미들웨어.
-export const mwUploadVideoSingle = fieldName => uploadVideo.single(fieldName);
+export const mwUploadVideoSingle = (fieldName) => uploadVideo.single(fieldName);
 export const mwUploadAvatarSingle = (req, res, next) => {
   console.log("hi");
   try {
-    uploadAvatar.single("avatar")(req, res, err => {
+    uploadAvatar.single("avatar")(req, res, (err) => {
       console.log("hihi");
       if (err instanceof multer.MulterError) {
         console.log(err);

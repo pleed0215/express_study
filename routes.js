@@ -20,6 +20,9 @@ const VIDEO_DETAIL = "/:id";
 const EDIT_VIDEO = "/:id/edit";
 const DELETE_VIDEO = "/:id/delete";
 
+// ERRORS
+const ERR_UNAUTHORIZED = "/error/unauthorized";
+
 // routes for passport.
 const GITHUB = "/auth/github";
 const GITHUB_CALLBACK = "/auth/github/callback";
@@ -49,6 +52,7 @@ const routes = {
   githubCallback: GITHUB_CALLBACK,
   facebook: FACEBOOK,
   facebookCallback: FACEBOOK_CALLBACK,
+  errUnauthorized: ERR_UNAUTHORIZED,
 };
 
 export default routes;

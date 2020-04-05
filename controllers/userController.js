@@ -7,10 +7,10 @@ export const getJoin = (req, res) => res.render("join", { pageTitle: "/Join" });
 export const postJoin = async (req, res, next) => {
   // console.log(req.body); // bodyParser package 덕분임. 그래서 쉽게 post 된 내용을 확인 가능하다.
   const {
-    body: { name, email, password, password2 }
+    body: { name, email, password, password2 },
   } = req;
 
-  if (req.body.password !== req.body.password2) {
+  if (password !== password2) {
     console.log("each password is not coincided.");
     res.status(400);
     res.render("join", { pageTitle: "/Join" });
@@ -32,7 +32,7 @@ export const getLogin = (req, res) =>
   res.render("login", { pageTitle: "/login" });
 export const postLogin = passport.authenticate("local", {
   failrueRedirect: routes.login,
-  successRedirect: routes.home
+  successRedirect: routes.home,
 });
 
 // /logout GET method
@@ -46,10 +46,18 @@ export const users = (req, res) => res.render("users", { pageTitle: "/users" });
 
 // /users/:id, GET method.
 export const userDetail = async (req, res) => {
-  const reqId = req.params.id;
-  const reqUser = await User.findById(reqId);
-
-  res.render("userDetail", { pageTitle: "/userDetail", reqUser });
+  try {
+    const {
+      params: { id },
+    } = req;
+    const reqUser = await User.findById(id).populate("videos");
+    console.log(reqUser);
+    res.render("userDetail", { pageTitle: "/userDetail", reqUser });
+  } catch (error) {
+    console.log(error);
+    res.status(200);
+    res.redirect(routes.home);
+  }
 };
 
 // users/:id/edit-profile, GET, POS method.
@@ -59,18 +67,18 @@ export const getEditProfile = (req, res) => {
 export const postEditProfile = async (req, res) => {
   const {
     body: { name, email },
-    file
+    file,
   } = req;
 
+  console.log("user avatar is ", req.user.avatarUrl);
   try {
     await User.findByIdAndUpdate(req.user._id, {
       name,
       email,
-      avatarUrl: file ? `/${file.path}` : req.user.avatarUrl
+      avatarUrl: !req.user.avatarUrl ? `/${file.path}` : req.user.avatarUrl,
     });
     res.redirect(routes.userDetail(req.user._id));
-  }
-  catch (error) {
+  } catch (error) {
     console.log(error);
     res.redirect(routes.home);
   }
@@ -83,16 +91,18 @@ export const getChangePassword = (req, res) =>
 
 export const postChangePassword = async (req, res) => {
   const {
-    body: { oldpassword, password1, password2 }
+    body: { oldpassword, password1, password2 },
   } = req;
 
   try {
     if (password1 === password2) {
       await req.user.changePassword(oldpassword, password1);
-    }
-    else {
+    } else {
       res.status(400);
-      res.render(routes.changePassword(req.user.id), { pageTitle: "Verify your password!", inputError: true })
+      res.render(routes.changePassword(req.user.id), {
+        pageTitle: "Verify your password!",
+        inputError: true,
+      });
     }
     res.redirect(routes.userDetail(req.user.id));
   } catch (error) {
@@ -107,14 +117,14 @@ export const postChangePassword = async (req, res) => {
 export const githubLogin = passport.authenticate("github");
 export const githubLoginCallback = passport.authenticate("github", {
   failrueRedirect: routes.login,
-  successRedirect: routes.home
+  successRedirect: routes.home,
 });
 
 // for facebook
 export const facebookLogin = passport.authenticate("facebook", {
-  scope: ["email"]
+  scope: ["email"],
 });
 export const facebookLoginCallback = passport.authenticate("facebook", {
   failrueRedirect: routes.login,
-  successRedirect: routes.home
+  successRedirect: routes.home,
 });
