@@ -3,6 +3,7 @@
   color: white;
   font-size: 18px;
   font-weight: 500;
+  width: 100%;
   &:hover {
     .videoPlayer__controls {
       opacity: 1;
@@ -13,7 +14,7 @@
     }
   }
   video {
-    max-width: 100%;
+    width: 100%;
   }
   .videoPlayer__gradientbox {
     position: absolute;

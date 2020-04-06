@@ -4,7 +4,7 @@ mixin videoPlayer (video = {} )
         .videoPlayer__gradientbox
         .videoPlayer__controls
             .videoPlayer__column
-                span
+                span#jsVolumeButton
                     i.fas.fa-volume-up
                 span
                 |&nbsp;&nbsp; 00:00 / 10:00
@@ -12,5 +12,5 @@ mixin videoPlayer (video = {} )
                 span#jsPlayButton
                     i.fas.fa-play
             .videoPlayer__column
-                span
+                span#jsFullscreenButton
                     i.fas.fa-expand
