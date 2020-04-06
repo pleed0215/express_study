@@ -6,6 +6,7 @@
   &:hover {
     .videoPlayer__controls {
       opacity: 1;
+      font-size: ($videoControlFontSize + 2px);
     }
     .videoPlayer__gradientbox {
       opacity: 0.4;
@@ -30,6 +31,7 @@
     }
     opacity: 0;
     transition: opacity 0.2s linear;
+    transition: font-size 0.2s linear;
     position: absolute;
     bottom: 0px;
     width: 100%;
