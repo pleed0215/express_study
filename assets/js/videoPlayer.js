@@ -36,10 +36,15 @@ function init() {
   currentPosition = videoContainer.querySelector("#jsCurrentPosition");
 
   isFullscreen = false;
+  videoPlayer.addEventListener("ended", function (e) {
+    videoPlayer.currentTime = 0;
+    playButton.innerHTML = '<i class="fas fa-play"></i>';
+  });
 
   // video play button event and handler.
   // doing: when click, this function makes play/pause button change.
-  playButton.addEventListener("click", () => {
+  //playButton.addEventListener("click", () => {
+  playButton.onclick = function () {
     if (videoPlayer.paused) {
       videoPlayer.play();
       playButton.innerHTML = '<i class="fas fa-pause"></i>';
@@ -52,8 +57,10 @@ function init() {
       playButton.innerHTML = '<i class="fas fa-play"></i>';
       clearInterval(playerTimerId);
     }
-  });
+  }
 
+  // event: click,
+  // doing: volume mute or volume unmute.
   volumeButton.addEventListener("click", (e) => {
     if (!videoPlayer.muted) {
       //videoPlayerVolume = videoPlayer.volume;
@@ -68,6 +75,8 @@ function init() {
     }
   });
 
+  // event: fullscreen click
+  // fullscreen or exit fullscreen
   fullscreenButton.addEventListener("click", (e) => {
     if (isFullscreen) {
       if (document.exitFullscreen) {
@@ -103,6 +112,7 @@ function init() {
     }
   });
 
+  // video on load.
   videoPlayer.addEventListener("loadedmetadata", function () {
     videoLength.innerHTML = secondsToHHMMSS(videoPlayer.duration);
   });
