@@ -18,7 +18,7 @@
   .videoPlayer__gradientbox {
     position: absolute;
     bottom: 0px;
-    height: 70px;
+    height: 30px;
     width: 100%;
     transition: opacity 0.2s linear;
     background: linear-gradient(to bottom, black, white);
@@ -29,26 +29,25 @@
     i {
       cursor: pointer;
     }
-    
+
     opacity: 0;
     transition: opacity 0.2s linear;
     transition: font-size 0.2s linear;
     position: absolute;
     bottom: 0px;
     width: 100%;
+    height: 30px;
     padding-top: 15px;
-    padding-bottom: 15px;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     z-index: 9;
 
     .videoPlayer__column {
+      align-items: center;
       opacity: 1;
       color: white;
       z-index: -1;
       display: flex;
-      align-items: center;
-      justify-content: space-between;
     }
     .videoPlayer__column:first-child {
       justify-self: start;
@@ -58,21 +57,44 @@
       #jsPlayButton {
         margin-right: 10px;
       }
-      #jsVolumeButton {
+      .volumeButton {
         margin-right: 10px;
-        &:hover {
-          input[type=range] {
-            display:inline-block;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        &:hover,
+        .rangeVolume:hover {
+          .rangeVolume {
+            visibility: visible;
+          }
+        }
+
+        &:not(:hover),
+        .rangeVolume:not(:hover) {
+          .rangeVolume {
+            visibility: hidden;
           }
         }
       }
 
-      input[type=range] {
-           display: none;
-           width: 60%;
-           height: 10px;
+      /*input[type="range"] {
+        width: 50%;
+        height: 10px;
+      }*/
+      input[type="range"][orient="vertical"] {
+        position: absolute;
+        writing-mode: bt-lr; /* IE */
+        -webkit-appearance: slider-vertical; /* WebKit */
+        width: 13px;
+        height: 70px;
+        left: 35px;
+        bottom: 25px;
+        visibility: hidden;
       }
-
+    }
+    .videoPlayer__column:nth-child(2) {
+      justify-self: start;
+      margin-left: -15px;
     }
 
     .videoPlayer__column:last-child {

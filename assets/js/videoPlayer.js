@@ -8,6 +8,7 @@ let videoPlayer; // HTMLVideo Element
 let playButton; // custom play button in video player.
 let volumeButton; // custom volume button in video player.
 let fullscreenButton; // fullscreen button.
+let rangeVolume; // input type range of volume.
 let videoLength;
 let currentPosition;
 let playerTimerId;
@@ -34,6 +35,7 @@ function init() {
   fullscreenButton = videoContainer.querySelector("#jsFullscreenButton");
   videoLength = videoContainer.querySelector("#jsVideoLength");
   currentPosition = videoContainer.querySelector("#jsCurrentPosition");
+  rangeVolume = videoContainer.querySelector("#jsVolume");
 
   isFullscreen = false;
   videoPlayer.addEventListener("ended", function (e) {
@@ -57,7 +59,7 @@ function init() {
       playButton.innerHTML = '<i class="fas fa-play"></i>';
       clearInterval(playerTimerId);
     }
-  }
+  };
 
   // event: click,
   // doing: volume mute or volume unmute.
@@ -67,11 +69,14 @@ function init() {
       //videoPlayer.volume = 0;
       videoPlayer.muted = true;
       volumeButton.innerHTML = '<i class="fas fa-volume-mute"></i>';
+      rangeVolume.value = 0;
+      rangeVolume.disabled = true;
     } else {
-      console.log(videoPlayerVolume);
       //videoPlayer.volume = videoPlayerVolume;
       volumeButton.innerHTML = '<i class="fas fa-volume-up"></i>';
       videoPlayer.muted = false;
+      rangeVolume.disabled = false;
+      rangeVolume.value = videoPlayer.volume;
     }
   });
 
@@ -115,6 +120,23 @@ function init() {
   // video on load.
   videoPlayer.addEventListener("loadedmetadata", function () {
     videoLength.innerHTML = secondsToHHMMSS(videoPlayer.duration);
+    rangeVolume.value = 1;
+  });
+
+  // on volume range change.
+  rangeVolume.addEventListener("change", function (e) {
+    const {
+      target: { value },
+    } = e;
+    videoPlayer.volume = value;
+
+    if (value > 0.5) {
+      volumeButton.innerHTML = '<i class="fas fa-volume-up"></i>';
+    } else if (value > 0.2) {
+      volumeButton.innerHTML = '<i class="fas fa-volume-down"></i>';
+    } else {
+      volumeButton.innerHTML = '<i class="fas fa-volume-off"></i>';
+    }
   });
 }
 
