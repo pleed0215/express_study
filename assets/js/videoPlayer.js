@@ -9,36 +9,48 @@ let playButton; // custom play button in video player.
 let volumeButton; // custom volume button in video player.
 let fullscreenButton; // fullscreen button.
 let videoLength;
+let currentPosition;
+let playerTimerId;
 
 // to make number two digit string, ie) 01, 02, 03
 function twoDigitString(number) {
   return number < 10 ? `0${number}` : `${number}`;
 }
 
+// function for making video duration or currentPosition "HH:MM:SS" format
 function secondsToHHMMSS(seconds) {
   const hh = Math.floor(seconds / 3600);
   const mm = Math.floor((seconds - hh * 3600) / 60);
   const ss = Math.floor(seconds - hh * 3600 - mm * 60);
 
-  return `${twoDigitString(hh)}:${twoDigitString(mm)}: ${twoDigitString(ss)}`;
+  return `${twoDigitString(hh)}:${twoDigitString(mm)}:${twoDigitString(ss)}`;
 }
 
 function init() {
+  // element initializing.
   videoPlayer = videoContainer.querySelector("video");
   playButton = videoContainer.querySelector("#jsPlayButton");
   volumeButton = videoContainer.querySelector("#jsVolumeButton");
   fullscreenButton = videoContainer.querySelector("#jsFullscreenButton");
   videoLength = videoContainer.querySelector("#jsVideoLength");
+  currentPosition = videoContainer.querySelector("#jsCurrentPosition");
 
   isFullscreen = false;
 
+  // video play button event and handler.
+  // doing: when click, this function makes play/pause button change.
   playButton.addEventListener("click", () => {
     if (videoPlayer.paused) {
       videoPlayer.play();
       playButton.innerHTML = '<i class="fas fa-pause"></i>';
+      currentPosition.innerHTML = secondsToHHMMSS(videoPlayer.currentTime);
+      playerTimerId = setInterval(function () {
+        currentPosition.innerHTML = secondsToHHMMSS(videoPlayer.currentTime);
+      }, 1000);
     } else {
       videoPlayer.pause();
       playButton.innerHTML = '<i class="fas fa-play"></i>';
+      clearInterval(playerTimerId);
     }
   });
 
