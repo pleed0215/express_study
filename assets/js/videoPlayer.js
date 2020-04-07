@@ -4,18 +4,33 @@
 // 므로 error를 발생시킨다. 따라서. videoContainer가 null인지 항상 검사해야 함.
 const videoContainer = document.getElementById("jsVideoPlayer");
 let isFullscreen = false;
-let videoPlayer, playButton, volumeButton, fullscreenButton;
-let videoPlayerVolume;
+let videoPlayer; // HTMLVideo Element
+let playButton; // custom play button in video player.
+let volumeButton; // custom volume button in video player.
+let fullscreenButton; // fullscreen button.
+let videoLength;
+
+// to make number two digit string, ie) 01, 02, 03
+function twoDigitString(number) {
+  return number < 10 ? `0${number}` : `${number}`;
+}
+
+function secondsToHHMMSS(seconds) {
+  const hh = Math.floor(seconds / 3600);
+  const mm = Math.floor((seconds - hh * 3600) / 60);
+  const ss = Math.floor(seconds - hh * 3600 - mm * 60);
+
+  return `${twoDigitString(hh)}:${twoDigitString(mm)}: ${twoDigitString(ss)}`;
+}
 
 function init() {
   videoPlayer = videoContainer.querySelector("video");
   playButton = videoContainer.querySelector("#jsPlayButton");
   volumeButton = videoContainer.querySelector("#jsVolumeButton");
   fullscreenButton = videoContainer.querySelector("#jsFullscreenButton");
+  videoLength = videoContainer.querySelector("#jsVideoLength");
 
   isFullscreen = false;
-
-  videoPlayerVolume = videoPlayer.volume;
 
   playButton.addEventListener("click", () => {
     if (videoPlayer.paused) {
@@ -74,6 +89,10 @@ function init() {
       isFullscreen = true;
       fullscreenButton.innerHTML = '<i class="fas fa-compress"></i>';
     }
+  });
+
+  videoPlayer.addEventListener("loadedmetadata", function () {
+    videoLength.innerHTML = secondsToHHMMSS(videoPlayer.duration);
   });
 }
 
