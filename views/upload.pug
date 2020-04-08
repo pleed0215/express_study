@@ -2,6 +2,10 @@ extends layouts/main
 
 block content
     .form__container
+        .record__container#jsRecordContainer
+            video#jsVideoPreview Sorry, can't load your video.
+            button#jsRecordButton Start Recording
+
         form(action=`/videos${routes.upload}`, method="post", enctype='multipart/form-data')
             label(for="videofile") Video File
             input(type="file", id="videofile", name="videofile", required=true, accept="video/*")
