@@ -1,6 +1,6 @@
 mixin videoPlayer (video = {} )
     .videoPlayer#jsVideoPlayer
-        video(src=`/${video.fileUrl}`, controls=false)
+        video(src=video.fileUrl, controls=false)
         .videoPlayer__gradientbox
         .videoPlayer__controls
             .videoPlayer__column
