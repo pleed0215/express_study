@@ -1,3 +1,4 @@
+import axios from "axios";
 // javascript는 웹 브라우저에 항상 있으므로, videoPlayer가 호출되는
 // videoDetail page 이외에도 호출이되며, videoContainer가 null이 되는 경우가
 // videoDetail page 이외에도 항상 존재하며, 브라우저는 null인 객체에 접근하게 되
@@ -12,6 +13,13 @@ let rangeVolume; // input type range of volume.
 let videoLength;
 let currentPosition;
 let playerTimerId;
+
+const registerView = () => {
+  const videoId = window.location.href.split("/videos/")[1];
+  fetch(`/api/${videoId}/view`, {
+    method: "POST",
+  });
+};
 
 // to make number two digit string, ie) 01, 02, 03
 function twoDigitString(number) {
@@ -38,7 +46,9 @@ function init() {
   rangeVolume = videoContainer.querySelector("#jsVolume");
 
   isFullscreen = false;
+
   videoPlayer.addEventListener("ended", function (e) {
+    registerView();
     videoPlayer.currentTime = 0;
     playButton.innerHTML = '<i class="fas fa-play"></i>';
   });
