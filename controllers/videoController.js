@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
 import Video from "../models/video";
+import Comment from "../models/Comment";
 import routes from "../routes";
 
 // export const home = (req, res) => {res.render ("home", {pageTitle: "Home", videosDb:videosDb}); // render의 첫번째 인자는 템플릿, 두번째 인자는 템플릿에 추가할 정보가 담긴 객체이다.
@@ -127,12 +128,12 @@ export const videoDetail = async (req, res) => {
 
     /* 겁나게 중요한 내용. 레퍼런스가 아이템을 가져오는 방법. populate를 이용. 
        only can use to ObjectId that is referenced */
-    const videoById = await Video.findById(id).populate("creator");
+    const videoById = await Video.findById(id).populate("creator").populate("comments");
+    console.log(videoById);
     res.render("videoDetail", {
       pageTitle: `${videoById.title}`,
       video: videoById,
     });
-    console.log("after render");
   } catch (error) {
     console.log(error);
     res.redirect(routes.home);
@@ -150,6 +151,36 @@ export const postRegisterView = async (req, res) => {
     res.status(200);
   }
   catch (error) {
+    res.status(400);
+    res.end();
+  }
+  finally {
+    res.end();
+  }
+}
+
+export const postRegisterComment = async (req, res) => {
+  const {
+    params: { id },
+    body: { comment },
+    user,
+  } = req;
+
+  console.log("haha", req);
+
+  try {
+    const video = await Video.findById(id);
+    const newComment = await Comment.create({
+      text: comment,
+      creator: user.id,
+    });
+    video.comments.push(newComment.id);
+    user.comments.push(newComment.id);
+    video.save();
+    res.status(200);
+  }
+  catch (error) {
+    console.log(error);
     res.status(400);
     res.end();
   }

@@ -41,4 +41,20 @@
             margin-bottom: 8px;
         }
     }
+
+    .comments__container {
+        width: 100%;
+        form {
+            width: 100%;
+            max-width: 100%;
+            display: grid;
+            margin-top: 20px;
+            grid-template-columns: 90% 10%;
+            height: 80px;
+            textarea {
+                margin-right: 10px;
+                width: 98%;
+            }
+        }
+    }
 }

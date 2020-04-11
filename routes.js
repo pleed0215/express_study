@@ -32,6 +32,7 @@ const FACEBOOK_CALLBACK = "/auth/facebook/callback";
 // API routs for AJAX
 const API = "/api";
 const REGISTER_VIEW = "/:id/view";
+const REGISTER_COMMNET = "/:id/comment";
 
 const routes = {
   home: HOME,
@@ -59,6 +60,7 @@ const routes = {
   errUnauthorized: ERR_UNAUTHORIZED,
   api: API,
   registerView: REGISTER_VIEW,
+  registerComment: REGISTER_COMMNET,
 };
 
 export default routes;
