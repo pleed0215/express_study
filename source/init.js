@@ -1,3 +1,4 @@
+import "@babel/polyfill";
 import "./db";
 import dotenv from "dotenv";
 

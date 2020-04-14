@@ -51,9 +51,14 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev:server": "nodemon --exec babel-node init.js --delay 2",
-    "dev:assets": "webpack -w",
-    "build:assets": "WEBPACK_ENV=production webpack"
+    "dev:server": "cd source && nodemon --exec babel-node init.js --delay 2",
+    "dev:assets": "cd source && webpack -w",
+    "build:assets": "cd source && webpack",
+    "build:server": "npx babel source --out-dir build --ignore 'source/assets','source/static','source/webpack.config.js'",
+    "build": "npm run build:server && npm run build:assets && npm run copyAll",
+    "copyAll": "cp -R source/static build && cp -R source/views build",
+    "prebuild": "rm -rf build",
+    "start": "node build/init.js"
   },
   "repository": {
     "type": "git",

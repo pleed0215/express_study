@@ -4,6 +4,7 @@ import helmet from "helmet"; // security associated library.
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
+import path from "path";
 
 import passport from "passport";
 import session from "express-session";
@@ -23,10 +24,11 @@ const app = express();
 
 // setting up view engine with pug.
 app.set("view engine", "pug");
+app.set("views", path.join(__dirname, "views"));
 
 // set static
 app.use("/uploads", express.static("./uploads"));
-app.use("/static", express.static("static"));
+app.use("/static", express.static(path.join(__dirname, "static")));
 
 // setting up middlewares.
 app.use(helmet()); // security associated package
@@ -43,7 +45,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     secret: process.env.COOKIE_SECRET,
-    store: new CookieStore({ mongooseConnection: mongoose.connection })
+    store: new CookieStore({ mongooseConnection: mongoose.connection }),
   })
 );
 app.use(passport.initialize());
