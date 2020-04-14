@@ -10,13 +10,13 @@ console.log(process.env.MONGODB_URL);
 mongoose.connect(process.env.MONGODB_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useFindAndModify: false
+  useFindAndModify: false,
 });
 
 // initializing mongoose.
 export const db = mongoose.connection;
 
 db.once("open", () => console.log("Connected to DB"));
-db.on("error", error =>
+db.on("error", (error) =>
   console.log("Error to connect DB.\nError obj: " + error)
 );

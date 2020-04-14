@@ -66,7 +66,7 @@ export const postUpload = async (req, res) => {
     req.user.save();
     console.log("req.user", req.user);
     // TODO: Upload and save video.
-    console.log(path, title, description);
+
     res.redirect(routes.videoDetail(newVideo._id));
   } catch (error) {
     console.log(error);
@@ -128,7 +128,9 @@ export const videoDetail = async (req, res) => {
 
     /* 겁나게 중요한 내용. 레퍼런스가 아이템을 가져오는 방법. populate를 이용. 
        only can use to ObjectId that is referenced */
-    const videoById = await Video.findById(id).populate("creator").populate("comments");
+    const videoById = await Video.findById(id)
+      .populate("creator")
+      .populate("comments");
     console.log(videoById);
     res.render("videoDetail", {
       pageTitle: `${videoById.title}`,
@@ -142,22 +144,20 @@ export const videoDetail = async (req, res) => {
 
 export const postRegisterView = async (req, res) => {
   const {
-    params: { id }
+    params: { id },
   } = req;
   try {
     const video = await Video.findById(id);
     video.views++;
     video.save();
     res.status(200);
-  }
-  catch (error) {
+  } catch (error) {
     res.status(400);
     res.end();
-  }
-  finally {
+  } finally {
     res.end();
   }
-}
+};
 
 export const postRegisterComment = async (req, res) => {
   const {
@@ -176,13 +176,11 @@ export const postRegisterComment = async (req, res) => {
     user.comments.push(newComment.id);
     video.save();
     res.status(200);
-  }
-  catch (error) {
+  } catch (error) {
     console.log(error);
     res.status(400);
     res.end();
-  }
-  finally {
+  } finally {
     res.end();
   }
-}
+};
