@@ -1,6 +1,8 @@
 import axios from "axios";
 
 const formComment = document.getElementById("jsCommentForm");
+const ulComment = document.getElementById("jsCommentUl");
+const spanNumComments = document.getElementById("jsNumComments");
 
 function init() {
     formComment.addEventListener("submit", async (event) => {
@@ -19,6 +21,15 @@ function init() {
         })
             .then(function (response) {
                 console.log(response);
+                const newLi = document.createElement("li");
+                const newSpan = document.createElement("span");
+                let numLi;
+                newSpan.innerText = inputComment.value;
+                newLi.appendChild(newSpan);
+                ulComment.prepend(newLi);
+                numLi = ulComment.childElementCount;
+                spanNumComments.innerText = `${numLi} comment${numLi > 1 ? "s" : ""}`;
+                inputComment.value = "";
             })
             .catch(function (error) {
                 console.log(error);

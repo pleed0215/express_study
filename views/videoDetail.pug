@@ -17,13 +17,13 @@ block content
                     span Upload by 
                     a(href=routes.userDetail(video.creator.id))=video.creator.name
             .video__comment-title
-                span.video__comments #{video.comments.length} comment#{video.comments.length>0?"s":""}
+                span.video__comments#jsNumComments #{video.comments.length} comment#{video.comments.length>0?"s":""}
         .comments__container
             .form__container
                 form#jsCommentForm
                     textarea.comment(name="comment", col="50", row="5", required, placeholder="Write your comment...")
                     input.submit(type="submit", value="Commit!")
             .comments__container
-                ul.commnets__list
-                    each comment in video.comments
+                ul.comments__list#jsCommentUl
+                    each comment in video.comments.reverse()
                         li=comment.text

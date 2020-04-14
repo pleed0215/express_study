@@ -1,11 +1,33 @@
 import routes from "./routes";
-import multer from "multer";
+import multer from "multer"; // for upload
+import multerS3 from "multer-s3"; // for upload S3 with multer
+import awsSdk from "aws-sdk"; // amazon web service sdk
+
+const awsS3 = new awsSdk.S3({
+  secretAccessKey: process.env.AWS_SECRET_KEY,
+  accessKeyId: process.env.AWS_KEY,
+});
+
+
 
 // import Video model
 import Video from "./models/video";
 
-export const uploadVideo = multer({ dest: "uploads/videos/" });
-export const uploadAvatar = multer({ dest: "uploads/avatars/" });
+export const uploadVideo = multer({
+  storage: multerS3({
+    s3: awsS3,
+    acl: 'public-read',
+    bucket: 'pleedwetube/videos',
+  }),
+});
+//export const uploadAvatar = multer({ dest: "uploads/avatars/" });
+export const uploadAvatar = multer({
+  storage: multerS3({
+    s3: awsS3,
+    acl: 'public-read',
+    bucket: 'pleedwetube/avatars',
+  }),
+});
 
 export const localsMiddleware = (req, res, next) => {
   res.locals.siteName = "WeTube"; // this is how to use global variables in html(or pug). I can use this by javascript ie. #{ siteName }

@@ -15,19 +15,17 @@ const startRecord = () => {
     mediaRecorder = new MediaRecorder(streamObject);
     mediaRecorder.ondataavailable = videoData;
     mediaRecorder.start();
-    mediaRecorder.onstop = () => {
+    mediaRecorder.onstop = async () => {
         /*
             파일 저장하는 굉장히 중요한 부분.
          */
-
-        console.log(recordedData);
         const link = document.createElement('a');
         link.href = URL.createObjectURL(recordedData);
         link.download = "./recorded.webm";
         document.body.appendChild(link);
         link.click();
-        console.log(link);
-        document.querySelector("input[type=file]").value = link.href;
+        //console.log(link);
+        //document.querySelector("input[type=file]").value = link.href;
     };
 };
 

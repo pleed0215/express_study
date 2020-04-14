@@ -1,4 +1,4 @@
-import axios from "axios";
+import getBlobDuration from "get-blob-duration";
 // javascript는 웹 브라우저에 항상 있으므로, videoPlayer가 호출되는
 // videoDetail page 이외에도 호출이되며, videoContainer가 null이 되는 경우가
 // videoDetail page 이외에도 항상 존재하며, 브라우저는 null인 객체에 접근하게 되
@@ -49,7 +49,9 @@ function init() {
 
   videoPlayer.addEventListener("ended", function (e) {
     registerView();
+    clearInterval(playerTimerId);
     videoPlayer.currentTime = 0;
+    currentPosition.innerHTML = secondsToHHMMSS(videoPlayer.currentTime);
     playButton.innerHTML = '<i class="fas fa-play"></i>';
   });
 
@@ -60,9 +62,9 @@ function init() {
     if (videoPlayer.paused) {
       videoPlayer.play();
       playButton.innerHTML = '<i class="fas fa-pause"></i>';
-      currentPosition.innerHTML = secondsToHHMMSS(videoPlayer.currentTime);
+      currentPosition.innerHTML = secondsToHHMMSS(videoPlayer.currentTime + 1);
       playerTimerId = setInterval(function () {
-        currentPosition.innerHTML = secondsToHHMMSS(videoPlayer.currentTime);
+        currentPosition.innerHTML = secondsToHHMMSS(videoPlayer.currentTime + 1);
       }, 1000);
     } else {
       videoPlayer.pause();
@@ -128,8 +130,9 @@ function init() {
   });
 
   // video on load.
-  videoPlayer.addEventListener("loadedmetadata", function () {
-    videoLength.innerHTML = secondsToHHMMSS(videoPlayer.duration);
+  videoPlayer.addEventListener("loadedmetadata", async function () {
+    const videoDuration = await getBlobDuration(videoPlayer.src);
+    videoLength.innerHTML = secondsToHHMMSS(videoDuration);
     rangeVolume.value = 1;
   });
 

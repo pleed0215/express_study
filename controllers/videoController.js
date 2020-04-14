@@ -39,7 +39,7 @@ export const search = async (req, res) => {
 // handler for /videos
 export const videos = async (req, res) => {
   const videosDb = await Video.find({});
-  console.log(videosDb);
+  // console.log(videosDb);
   res.render("videos", { pageTitle: "videos", videosDb });
 };
 
@@ -51,12 +51,12 @@ export const postUpload = async (req, res) => {
   // traditional JS can't understand this way.
   const {
     body: { title, description },
-    file: { path },
+    file: { location }, // multer가 파일을 저장할 대에는 로컬에서는 path, 아마존같은 웹에 올릴 때에는 location으로 저장한다
   } = req;
-
+  console.log(req.file);
   try {
     const newVideo = await Video.create({
-      fileUrl: `/${path}`,
+      fileUrl: location,
       title,
       description,
       creator: req.user.id,
@@ -165,8 +165,6 @@ export const postRegisterComment = async (req, res) => {
     body: { comment },
     user,
   } = req;
-
-  console.log("haha", req);
 
   try {
     const video = await Video.findById(id);
