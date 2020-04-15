@@ -55,7 +55,7 @@
     "dev:server": "cd source && nodemon --exec babel-node init.js --delay 2",
     "dev:assets": "cd source && cross-env WEBPACK_ENV='development' webpack -w",
     "build:assets": "cd source && cross-env WEBPACK_ENV='production' webpack",
-    "build:server": "npx babel source --out-dir build --ignore 'source/assets','source/static','source/webpack.config.js'",
+    "build:server": "babel source --out-dir build --ignore 'source/assets','source/static','source/webpack.config.js'",
     "build": "npm run build:server && npm run build:assets && npm run copyAll",
     "copyAll": "cp -R source/static build && cp -R source/views build",
     "prebuild": "rm -rf build",
