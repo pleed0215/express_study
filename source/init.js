@@ -2,7 +2,7 @@ import "@babel/polyfill";
 
 import "./myEnv";
 
-import "./models/Comment";
+import "./models/comment";
 import "./models/video";
 import "./models/User";
 

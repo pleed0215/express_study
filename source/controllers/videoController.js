@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import Video from "../models/video";
-import Comment from "../models/Comment";
+import Comment from "../models/comment";
 import routes from "../routes";
 
 // export const home = (req, res) => {res.render ("home", {pageTitle: "Home", videosDb:videosDb}); // render의 첫번째 인자는 템플릿, 두번째 인자는 템플릿에 추가할 정보가 담긴 객체이다.
