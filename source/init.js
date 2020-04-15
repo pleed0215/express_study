@@ -9,8 +9,6 @@ import "./models/User";
 import app from "./app";
 import "./db";
 
-console.log(__dirname);
-
 const PORT = process.env.PORT || 3000;
 console.log(PORT);
 app.listen(PORT, () =>
