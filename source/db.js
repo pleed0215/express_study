@@ -1,7 +1,4 @@
 import mongoose from "mongoose";
-import dotenv from "dotenv"; // reason to use dotenv is for conciling secure informations.
-dotenv.config(); // in .env file, can make your secure information. in this lecture, we use DB url.
-// and have to add .env to .gitignore.
 
 console.log(process.env.MONGODB_URL);
 

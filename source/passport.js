@@ -1,11 +1,13 @@
 import passport from "passport";
 import GithubPassport from "passport-github";
 import FacebookPassport from "passport-facebook";
-
+import "./myEnv";
 import User from "./models/User";
 
 const GithubStrategy = GithubPassport.Strategy;
 const FacebookStrategy = FacebookPassport.Strategy;
+
+console.log("haha", process.env.GITHUB_CLIENT_ID);
 
 const githubClientID = process.env.GITHUB_CLIENT_ID;
 const githubClientSecret = process.env.GITHUB_CLIENT_SECRET;
