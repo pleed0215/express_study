@@ -1,60 +1,59 @@
 .video-detail__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+
+  .video__info {
+    width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    
+    align-content: center;
+    padding-bottom: 10px;
 
-    .video__info {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-content: center;
-        padding-bottom: 10px;
+    border-bottom: solid 1px $black;
 
-        border-bottom: solid 1px $black;
-        
-    
-        button {
-            background-color: #0984e3;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 10px;
-            margin-bottom: 30px;
-            margin-top: 20px;
-        }
-
-        .video__title {
-            font-size: 22px;
-            font-weight: 700;
-        }
-
-        .video__views-and-date,
-        .video__comment-title {
-            font-size: 18px;
-            color: #646D80;
-            margin-bottom: 10px;
-        }
-
-        .video__description {
-            font-size: 19px;
-            margin-bottom: 8px;
-        }
+    button {
+      background-color: #0984e3;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 10px;
+      margin-bottom: 30px;
+      margin-top: 20px;
     }
 
-    .comments__container {
-        width: 100%;
-        form {
-            width: 100%;
-            max-width: 100%;
-            display: grid;
-            margin-top: 20px;
-            grid-template-columns: 90% 10%;
-            height: 80px;
-            textarea {
-                margin-right: 10px;
-                width: 98%;
-            }
-        }
+    .video__title {
+      font-size: 22px;
+      font-weight: 700;
     }
+
+    .video__views-and-date,
+    .video__comment-title {
+      font-size: 18px;
+      color: #646d80;
+      margin-bottom: 10px;
+    }
+
+    .video__description {
+      font-size: 19px;
+      margin-bottom: 8px;
+    }
+  }
+
+  .comments__container {
+    width: 100%;
+    form {
+      width: 100%;
+      max-width: 100%;
+      display: grid;
+      margin-top: 20px;
+      grid-template-columns: 90% 10%;
+      height: 80px;
+      textarea {
+        margin-right: 10px;
+        width: 98%;
+      }
+    }
+  }
 }

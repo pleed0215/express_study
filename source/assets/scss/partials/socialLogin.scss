@@ -1,10 +1,15 @@
 .social-login {
+  width: 70%;
+  display: flex;
+
   button {
-    height: 3em;
+    height: 40px;
+    width: 100%;
     color: white;
+    transition: background-color 0.3s ease-in-out;
 
     a {
-      color:white;
+      color: white;
       text-decoration: none;
     }
 
@@ -13,9 +18,22 @@
     }
     &:first-child {
       background-color: $black;
+      margin-right: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      &:hover {
+        background-color: black;
+      }
     }
     &:last-child {
       background-color: #0e1f56;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      &:hover {
+        background-color: blue;
+      }
     }
   }
 }
