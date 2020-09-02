@@ -1,8 +1,9 @@
 @mixin btnColor {
-    background-color: #0984e3;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding-top: 8px;
-    padding-bottom: 8px;
+  background-color: #0984e3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

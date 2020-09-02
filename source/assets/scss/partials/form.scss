@@ -3,6 +3,12 @@
   height: 50vh;
 }
 
+.comment {
+  padding: 10px;
+  margin-right: 10px;
+  width: 60%;
+}
+
 .form__container {
   width: 100%;
   display: flex;
@@ -11,7 +17,6 @@
   box-sizing: border-box;
 
   form {
-    width: 100%;
     max-width: 320px;
     margin-bottom: 30px;
 
@@ -23,13 +28,8 @@
 
     input[type="submit"] {
       @include btnColor;
-      min-width: 100px;
-      width: 30%;
-      margin-left: 10px;
     }
-    .comment {
-      padding: 10px;
-      margin-right: 10px;
+    textarea {
       width: 70%;
     }
   }

@@ -143,6 +143,11 @@ table {
   width: 50%;
   height: 50vh; }
 
+.comment {
+  padding: 10px;
+  margin-right: 10px;
+  width: 60%; }
+
 .form__container {
   width: 100%;
   display: -webkit-box;
@@ -166,7 +171,6 @@ table {
      -moz-box-sizing: border-box;
           box-sizing: border-box; }
   .form__container form {
-    width: 100%;
     max-width: 320px;
     margin-bottom: 30px; }
     .form__container form input:not(:last-child) {
@@ -178,14 +182,22 @@ table {
       -webkit-border-radius: 5px;
          -moz-border-radius: 5px;
               border-radius: 5px;
-      padding-top: 8px;
-      padding-bottom: 8px;
-      min-width: 100px;
-      width: 30%;
-      margin-left: 10px; }
-    .form__container form .comment {
-      padding: 10px;
-      margin-right: 10px;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+         -moz-box-pack: center;
+          -ms-flex-pack: center;
+              justify-content: center;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+         -moz-box-align: center;
+          -ms-flex-align: center;
+              align-items: center; }
+    .form__container form textarea {
       width: 70%; }
   .form__container button {
     background-color: #0984e3;
@@ -194,8 +206,21 @@ table {
     -webkit-border-radius: 5px;
        -moz-border-radius: 5px;
             border-radius: 5px;
-    padding-top: 8px;
-    padding-bottom: 8px; }
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+       -moz-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+       -moz-box-align: center;
+        -ms-flex-align: center;
+            align-items: center; }
   .form__container a {
     width: 100%;
     max-width: 320px; }
@@ -207,8 +232,21 @@ table {
       -webkit-border-radius: 5px;
          -moz-border-radius: 5px;
               border-radius: 5px;
-      padding-top: 8px;
-      padding-bottom: 8px; }
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+         -moz-box-pack: center;
+          -ms-flex-pack: center;
+              justify-content: center;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+         -moz-box-align: center;
+          -ms-flex-align: center;
+              align-items: center; }
     .form__container a .delete {
       background-color: #c0392b; }
 
@@ -527,8 +565,21 @@ table {
       -webkit-border-radius: 5px;
          -moz-border-radius: 5px;
               border-radius: 5px;
-      padding-top: 8px;
-      padding-bottom: 8px;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+         -moz-box-pack: center;
+          -ms-flex-pack: center;
+              justify-content: center;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+         -moz-box-align: center;
+          -ms-flex-align: center;
+              align-items: center;
       width: 100%; }
     .user-detail__container .user-info .user__avatar {
       -webkit-border-radius: 50%;
