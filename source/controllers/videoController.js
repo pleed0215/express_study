@@ -1,4 +1,6 @@
 /* eslint-disable prettier/prettier */
+import moment from "moment";
+
 import Video from "../models/video";
 import Comment from "../models/comment";
 import routes from "../routes";
@@ -135,6 +137,7 @@ export const videoDetail = async (req, res) => {
     res.render("videoDetail", {
       pageTitle: `${videoById.title}`,
       video: videoById,
+      createdAt: moment(videoById.createdAt).format("YYYY-MM-DD"),
     });
   } catch (error) {
     console.log(error);

@@ -26,6 +26,8 @@
     .video__title {
       font-size: 22px;
       font-weight: 700;
+      margin-bottom: 5px;
+      margin-top: 5px;
     }
 
     .video__views-and-date,
@@ -33,11 +35,16 @@
       font-size: 18px;
       color: #646d80;
       margin-bottom: 10px;
+      margin-top: 10px;
     }
 
     .video__description {
       font-size: 19px;
       margin-bottom: 8px;
+    }
+
+    .video__creator {
+      margin-top: 5px;
     }
   }
 

@@ -541,15 +541,20 @@ table {
       margin-top: 20px; }
     .video-detail__container .video__info .video__title {
       font-size: 22px;
-      font-weight: 700; }
+      font-weight: 700;
+      margin-bottom: 5px;
+      margin-top: 5px; }
     .video-detail__container .video__info .video__views-and-date,
     .video-detail__container .video__info .video__comment-title {
       font-size: 18px;
       color: #646d80;
-      margin-bottom: 10px; }
+      margin-bottom: 10px;
+      margin-top: 10px; }
     .video-detail__container .video__info .video__description {
       font-size: 19px;
       margin-bottom: 8px; }
+    .video-detail__container .video__info .video__creator {
+      margin-top: 5px; }
   .video-detail__container .comments__container {
     width: 100%;
     height: auto;
@@ -701,7 +706,7 @@ table {
 body {
   background-color: #f5f5f5;
   color: #444444;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-size: 14px; }
 
 main {
