@@ -132,7 +132,11 @@ export const videoDetail = async (req, res) => {
        only can use to ObjectId that is referenced */
     const videoById = await Video.findById(id)
       .populate("creator")
-      .populate("comments");
+      .populate({
+        path: "comments",
+        populate: { path: "creator" },
+      });
+
     console.log(videoById);
     res.render("videoDetail", {
       pageTitle: `${videoById.title}`,

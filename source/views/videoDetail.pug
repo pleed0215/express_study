@@ -25,4 +25,6 @@ block content
             .comments__container
                 ul.comments__list#jsCommentUl
                     each comment in video.comments.reverse()
-                        li=comment.text
+                        li.comment__list
+                            span.comment__user=comment.creator.name
+                            span.comment__text=comment.text
