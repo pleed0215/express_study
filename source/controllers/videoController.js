@@ -9,24 +9,37 @@ import routes from "../routes";
 // getting db data version of home.
 export const home = async (req, res) => {
   try {
-    const videosDb = await Video.find({}).sort({ _id: -1 });
-    res.render("home", { pageTitle: "home", videosDb });
+    const videosDb = await Video.find({}).sort({
+      _id: -1
+    });
+    res.render("home", {
+      pageTitle: "home",
+      videosDb
+    });
   } catch (error) {
     console.log(error);
-    res.render("home", { pageTitle: "home with Error", videosDb: [] });
+    res.render("home", {
+      pageTitle: "home with Error",
+      videosDb: []
+    });
   }
 };
 
 // in search, I learned "regular expression", and my code need to install JS regex(regular expressions) library.
 export const search = async (req, res) => {
   const {
-    query: { term: searchingBy },
+    query: {
+      term: searchingBy
+    },
   } = req; // totally new way.
   let videosDb = [];
 
   try {
     videosDb = await Video.find({
-      title: { $regex: searchingBy, $options: "i" },
+      title: {
+        $regex: searchingBy,
+        $options: "i"
+      },
     });
   } catch (error) {
     console.log(error);
@@ -42,18 +55,28 @@ export const search = async (req, res) => {
 export const videos = async (req, res) => {
   const videosDb = await Video.find({});
   // console.log(videosDb);
-  res.render("videos", { pageTitle: "videos", videosDb });
+  res.render("videos", {
+    pageTitle: "videos",
+    videosDb
+  });
 };
 
 // handlers for /vidoes/upload
 export const getUpload = (req, res) =>
-  res.render("upload", { pageTitle: "videos/upload" });
+  res.render("upload", {
+    pageTitle: "videos/upload"
+  });
 export const postUpload = async (req, res) => {
   // new way to get post information.
   // traditional JS can't understand this way.
   const {
-    body: { title, description },
-    file: { location }, // multer가 파일을 저장할 대에는 로컬에서는 path, 아마존같은 웹에 올릴 때에는 location으로 저장한다
+    body: {
+      title,
+      description
+    },
+    file: {
+      location
+    }, // multer가 파일을 저장할 대에는 로컬에서는 path, 아마존같은 웹에 올릴 때에는 location으로 저장한다
   } = req;
   console.log(req.file);
   try {
@@ -80,7 +103,9 @@ export const postUpload = async (req, res) => {
 export const getEditVideo = async (req, res) => {
   try {
     const {
-      params: { id },
+      params: {
+        id
+      },
     } = req;
     const videoById = await Video.findById(id);
     res.render("editVideo", {
@@ -95,13 +120,21 @@ export const getEditVideo = async (req, res) => {
 export const postEditVideo = async (req, res) => {
   try {
     const {
-      params: { id },
-      body: { title, description },
+      params: {
+        id
+      },
+      body: {
+        title,
+        description
+      },
     } = req;
     await Video.findByIdAndUpdate(
-      id,
-      { title, description },
-      { useFindAndModify: true }
+      id, {
+        title,
+        description
+      }, {
+        useFindAndModify: true
+      }
     );
     res.redirect(routes.videoDetail(id));
   } catch (error) {
@@ -113,7 +146,9 @@ export const postEditVideo = async (req, res) => {
 export const deleteVideo = async (req, res) => {
   try {
     const {
-      params: { id },
+      params: {
+        id
+      },
     } = req;
     await Video.findByIdAndRemove(id);
   } catch (error) {
@@ -125,7 +160,9 @@ export const deleteVideo = async (req, res) => {
 export const videoDetail = async (req, res) => {
   try {
     const {
-      params: { id }, // paramemters. :id
+      params: {
+        id
+      }, // paramemters. :id
     } = req;
 
     /* 겁나게 중요한 내용. 레퍼런스가 아이템을 가져오는 방법. populate를 이용. 
@@ -134,7 +171,9 @@ export const videoDetail = async (req, res) => {
       .populate("creator")
       .populate({
         path: "comments",
-        populate: { path: "creator" },
+        populate: {
+          path: "creator"
+        },
       });
 
     console.log(videoById);
@@ -151,7 +190,9 @@ export const videoDetail = async (req, res) => {
 
 export const postRegisterView = async (req, res) => {
   const {
-    params: { id },
+    params: {
+      id
+    },
   } = req;
   try {
     const video = await Video.findById(id);
@@ -168,8 +209,12 @@ export const postRegisterView = async (req, res) => {
 
 export const postRegisterComment = async (req, res) => {
   const {
-    params: { id },
-    body: { comment },
+    params: {
+      id
+    },
+    body: {
+      comment
+    },
     user,
   } = req;
 
@@ -182,6 +227,10 @@ export const postRegisterComment = async (req, res) => {
     video.comments.push(newComment.id);
     user.comments.push(newComment.id);
     video.save();
+    res.send({
+      creator: user,
+      text: comment,
+    });
     res.status(200);
   } catch (error) {
     console.log(error);

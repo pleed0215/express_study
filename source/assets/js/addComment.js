@@ -22,11 +22,29 @@ function init() {
       })
       .then(function (response) {
         console.log(response);
-        const newLi = document.createElement("li");
-        const newSpan = document.createElement("span");
         let numLi;
-        newSpan.innerText = inputComment.value;
-        newLi.appendChild(newSpan);
+        const newLi = document.createElement("li");
+        const newSpanUser = document.createElement("span");
+        const newSpanText = document.createElement("span");
+        const newAvatar = document.createElement("div");
+        const commentContent = document.createElement("div");
+
+        commentContent.classList.add("comment__content");
+        newAvatar.classList.add("avatarContainer");
+        newAvatar.style.backgroundImage = `url('${response.data.creator.avatarUrl}')`;
+        newAvatar.style.width = "30px";
+        newAvatar.style.height = "30px";
+        newLi.classList.add("comment__list");
+        newSpanText.innerText = response.data.text;
+        newSpanText.classList.add("comment__text");
+        newSpanUser.innerText = response.data.creator.name;
+        newSpanUser.classList.add("comment__user");
+
+        commentContent.appendChild(newSpanUser);
+        commentContent.appendChild(newSpanText);
+
+        newLi.appendChild(newAvatar);
+        newLi.appendChild(commentContent);
         ulComment.prepend(newLi);
         numLi = ulComment.childElementCount;
         spanNumComments.innerText = `${numLi} comment${numLi > 1 ? "s" : ""}`;
