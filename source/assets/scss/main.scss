@@ -10,6 +10,7 @@
 @import "partials/socialLogin";
 @import "partials/videoBlock";
 @import "partials/videoPlayer";
+@import "partials/avatar.scss";
 
 // import pages
 @import "pages/videoDetail";
@@ -20,6 +21,7 @@
 
 // import error pages.
 @import "error/unauthorized";
+
 * {
   box-sizing: border-box;
 }
@@ -53,10 +55,12 @@ input {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   text-indent: 1em;
   transition: box-shadow 0.3s ease-in-out;
+
   &:focus,
   &:active {
     outline: none;
   }
+
   &::placeholder {
     color: black;
   }

@@ -1,5 +1,6 @@
 extends layouts/main
 include mixins/videoPlayer
+include mixins/avatar
 
 
 block content
@@ -26,5 +27,6 @@ block content
                 ul.comments__list#jsCommentUl
                     each comment in video.comments.reverse()
                         li.comment__list
+                            +avatar(comment.creator, "30px")
                             span.comment__user=comment.creator.name
                             span.comment__text=comment.text

@@ -1,0 +1,6 @@
+mixin avatar(userModel, size)
+    if userModel.avatarUrl
+        div.avatarContainer(style=`background-image: url('${userModel.avatarUrl}'); width: ${size}; height: ${size}`)
+    else
+        div.avatarContainer(style=`background-color: "gray"; width: ${size}; height: ${size}`)
+
