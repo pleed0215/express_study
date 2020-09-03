@@ -30,4 +30,5 @@ block content
                             +avatar(comment.creator, "30px")
                             .comment__content
                                 span.comment__user=comment.creator.name
-                                span.comment__text=comment.text
+                                .comment__text
+                                    span.comment__span=comment.text

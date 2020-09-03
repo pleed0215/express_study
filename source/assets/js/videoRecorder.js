@@ -41,7 +41,10 @@ const getVideo = async () => {
         else {
             streamObject = await navigator.mediaDevices.getUserMedia({
                 audio: true,
-                video: { width: 1280, height: 720 }
+                video: {
+                    width: 1280,
+                    height: 720
+                }
             });
             console.log(streamObject);
             videoPreview.srcObject = streamObject;
@@ -50,8 +53,7 @@ const getVideo = async () => {
             recordButton.innerText = "Stop recording";
             startRecord();
         }
-    }
-    catch (error) {
+    } catch (error) {
         console.log(error);
         recordButton.innerHTML = "Can't record.";
         recordButton.removeEventListener("click", getVideo);
