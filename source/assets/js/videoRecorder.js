@@ -17,7 +17,7 @@ const startRecord = () => {
     mediaRecorder.start();
     mediaRecorder.onstop = async () => {
         /*
-        파일 저장하는 굉장히 중요한 부분.
+            zz파일 저장하는 굉장히 중요한 부분.
          */
         const link = document.createElement('a');
         link.href = URL.createObjectURL(recordedData);
