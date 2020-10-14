@@ -132,6 +132,7 @@ function init() {
   // video on load.
   videoPlayer.addEventListener("loadedmetadata", async function () {
     const videoDuration = videoPlayer.seekable.end(0);//await getBlobDuration(videoPlayer.src);
+    console.log(videoDuration);
     videoLength.innerHTML = secondsToHHMMSS(videoDuration);
     rangeVolume.value = 1;
   });
